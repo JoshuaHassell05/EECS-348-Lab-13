@@ -9,19 +9,21 @@ with 10 values), the expected output and the actual output. If impossible,
 explains the reason. Besides, you should implement the complete program,
 including the functions under test, and verify your inputs along with their
 corresponding outputs.
-    Test Case: attendance_records = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    Expected Output: false (0 absences)
-    Actual Output: false (0 absences)
-    Explanation: This test case does not execute the fault because there are no absences in the records. 
-    The loop starting from index 1 does not affect the outcome since all records are present (1).   
-    
+   It is impossible to define a valid test case (with 10 attendance values) that does not execute the fault. 
+   Because the faulty code is in the loop header that always runs for any non-empty vector of size 10.
 3. Define a test case that executes the fault but does not result in an error
 state.
-
+    Test Case: {1, 1, 1, 0, 1, 1, 0, 1, 1, 1}
+    Expected Output: false (since there are only 2 absences)
+    Actual Output: false (the fault does not affect this case)
 4. Define a test case that results in an error state but not a failure.
-    
+    Test Case: {0, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    Expected Output: false (since there is only 1 absence)
+    Actual Output: false (the fault does not affect this case)
 5. Define a test case that results in failure.
-  
+    Test Case: {0, 0, 0, 1, 1, 1, 1, 1, 1, 1}
+    Expected Output: true (since there are 3 absences)
+    Actual Output: false (the fault causes the first absence to be ignored)
 */
 #include <iostream>
 #include <vector>
@@ -43,4 +45,28 @@ bool fail_lecture_correct(const vector<int>& attendance_records) {
         }
     }
     return absent_count >= 3;
+}
+int main() {
+    vector<int> q3 = {1, 1, 1, 0, 1, 1, 0, 1, 1, 1};
+    cout << "Q3 Test Case: ";
+    for (int x : q3) { cout << x << " "; }
+    cout << "\n";
+    cout << "Expected: " << (fail_lecture_correct(q3) ? "true" : "false") << "\n";
+    cout << "Actual:   " << (fail_lecture(q3) ? "true" : "false") << "\n\n";
+
+    vector<int> q4 = {0, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    cout << "Q4 Test Case: ";
+    for (int x : q4) { cout << x << " "; }
+    cout << "\n";
+    cout << "Expected: " << (fail_lecture_correct(q4) ? "true" : "false") << "\n";
+    cout << "Actual:   " << (fail_lecture(q4) ? "true" : "false") << "\n\n";
+
+    vector<int> q5 = {0, 0, 0, 1, 1, 1, 1, 1, 1, 1};
+    cout << "Q5 Test Case: ";
+    for (int x : q5) { cout << x << " "; }
+    cout << "\n";
+    cout << "Expected: " << (fail_lecture_correct(q5) ? "true" : "false") << "\n";
+    cout << "Actual:   " << (fail_lecture(q5) ? "true" : "false") << "\n\n";
+
+    return 0;
 }
