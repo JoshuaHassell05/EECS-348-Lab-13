@@ -9,6 +9,11 @@ with 10 values), the expected output and the actual output. If impossible,
 explains the reason. Besides, you should implement the complete program,
 including the functions under test, and verify your inputs along with their
 corresponding outputs.
+    Test Case: attendance_records = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    Expected Output: false (0 absences)
+    Actual Output: false (0 absences)
+    Explanation: This test case does not execute the fault because there are no absences in the records. 
+    The loop starting from index 1 does not affect the outcome since all records are present (1).   
     
 3. Define a test case that executes the fault but does not result in an error
 state.
@@ -24,6 +29,15 @@ using namespace std;
 bool fail_lecture(const vector<int>& attendance_records) {
     int absent_count = 0;
     for (size_t i = 1; i < attendance_records.size(); ++i) {
+        if (attendance_records[i] == 0) {
+            absent_count++;
+        }
+    }
+    return absent_count >= 3;
+}
+bool fail_lecture_correct(const vector<int>& attendance_records) {
+    int absent_count = 0;
+    for (size_t i = 0; i < attendance_records.size(); ++i) {
         if (attendance_records[i] == 0) {
             absent_count++;
         }
